@@ -59,6 +59,9 @@ def replace_symbols(text, lang='en'):
         text = text.replace('&', ' et ')
     elif lang == 'pt':
         text = text.replace('&', ' e ')
+    elif lang == 'vi':         
+        text = text.replace('&', ' và ')
+        text = text.replace('v.v.', ' vân vân ')
     return text
 
 def basic_cleaners(text):
@@ -127,5 +130,12 @@ def phoneme_cleaners(text):
     text = expand_abbreviations(text)
     text = replace_symbols(text)
     text = remove_aux_symbols(text)
+    text = collapse_whitespace(text)
+    return text
+
+def vietnamese_cleaners(text):
+    '''Basic pipeline for Vietnamese text.'''
+    text = lowercase(text)
+    text = replace_symbols(text, lang='vi')
     text = collapse_whitespace(text)
     return text
